@@ -15,11 +15,12 @@ public class Item {
         return price;
     }
 
+/* Commenting unused methods
     @Override
     public String toString(){
         return  name + ":"
                 + price
                 + "\n"
                 ;
-    }
+    }*/
 }
