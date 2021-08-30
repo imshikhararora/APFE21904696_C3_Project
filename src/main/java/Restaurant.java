@@ -42,11 +42,11 @@ public class Restaurant {
         menu.add(newItem);
     }
     
-    public void removeFromMenu(String itemName) throws itemNotFoundException {
+    public void removeFromMenu(String itemName) throws ItemNotFoundException {
 
         Item itemToBeRemoved = findItemByName(itemName);
         if (itemToBeRemoved == null)
-            throw new itemNotFoundException(itemName);
+            throw new ItemNotFoundException(itemName);
 
         menu.remove(itemToBeRemoved);
     }
