@@ -11,7 +11,6 @@ class RestaurantServiceTest {
 
     RestaurantService service = new RestaurantService();
     Restaurant restaurant;
-    //REFACTOR ALL THE REPEATED LINES OF CODE
 
     @BeforeEach
     public void setup() {
@@ -26,7 +25,6 @@ class RestaurantServiceTest {
         MatcherAssert.assertThat(service.findRestaurantByName("Amelie's Cafe"), Matchers.equalTo(restaurant));
     }
 
-    //You may watch the video by Muthukumaran on how to write exceptions in Course 3: Testing and Version control: Optional content
     @Test
     public void searching_for_non_existing_restaurant_should_throw_exception() throws RestaurantNotFoundException {
         //WRITE UNIT TEST CASE HERE
@@ -35,9 +33,6 @@ class RestaurantServiceTest {
         });
     }
     //<<<<<<<<<<<<<<<<<<<<SEARCHING>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-
 
     //>>>>>>>>>>>>>>>>>>>>>>ADMIN: ADDING & REMOVING RESTAURANTS<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Test
