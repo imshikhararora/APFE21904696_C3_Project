@@ -57,16 +57,17 @@ public class Restaurant {
                 +"Opening time:"+ openingTime +"\n"
                 +"Closing time:"+ closingTime +"\n"
                 +"Menu:"+"\n"+getMenu());
-
     }
 
     public String getName() {
         return name;
     }
 
-    public int getOrderCost(List<Item> selectedItems) {
+    public int getOrderCost(List<Item> selectedItems) throws ItemNotFoundException {
         int orderCost = 0;
         for(Item item : selectedItems) {
+            if(findItemByName(item.getName()) == null)
+                throw new ItemNotFoundException(item.getName());
             orderCost += item.getPrice();
         }
         return orderCost;
