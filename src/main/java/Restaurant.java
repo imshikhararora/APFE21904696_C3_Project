@@ -64,4 +64,12 @@ public class Restaurant {
         return name;
     }
 
+    public int getOrderCost(List<Item> selectedItems) {
+        int orderCost = 0;
+        for(Item item : selectedItems) {
+            orderCost += item.getPrice();
+        }
+        return orderCost;
+    }
+    
 }
