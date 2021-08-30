@@ -3,6 +3,8 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,4 +56,40 @@ class RestaurantServiceTest {
         assertEquals(initialNumberOfRestaurants + 1,service.getRestaurants().size());
     }
     //<<<<<<<<<<<<<<<<<<<<ADMIN: ADDING & REMOVING RESTAURANTS>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //>>>>>>>>>>>>>>>>>>>>>>ORDER COST<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    @Test
+    public void get_correct_order_cost_when_one_or_more_items_are_selected() {
+        List<Item> selectedItems = restaurant.getMenu();
+        int expectedOrderCost = 388;
+
+        MatcherAssert.assertThat(service.getOderCost(selectedItems),Matchers.equalTo(expectedOrderCost));
+
+        restaurant.addToMenu("Sizzling Brownie",319);
+        selectedItems.add(new Item("Sizzling Brownie",319));
+        expectedOrderCost += 319;
+
+        MatcherAssert.assertThat(service.getOderCost(selectedItems),Matchers.equalTo(expectedOrderCost));
+    }
+
+    @Test
+    public void get_order_cost_as_zero_by_default_when_no_items_are_selected() {
+        MatcherAssert.assertThat(service.getOrderCost(new ArrayList<List>()),Matchers.equalTo(0));
+    }
+
+    @Test
+    public void get_updated_order_cost_when_removing_the_selected_items() {
+        List<Item> selectedItems = restaurant.getMenu();
+        int expectedOrderCost = 319;
+
+        MatcherAssert.assertThat(service.getOrderCost(selectedItems), Matchers.equalTo(expectedOrderCost));
+
+        selectedItems.remove(new Item("Vegetable Lasagne",269));
+        expectedOrderCost -= 269;
+
+        MatcherAssert.assertThat(service.getOrderCost(selectedItems), Matchers.equalTo(expectedOrderCost));
+    }
+
+    //<<<<<<<<<<<<<<<<<<<<ORDER COST>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
