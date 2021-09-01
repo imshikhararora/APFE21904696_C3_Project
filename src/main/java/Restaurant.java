@@ -65,12 +65,12 @@ public class Restaurant {
         return name;
     }
 
-    public int getOrderCost(List<Item> selectedItems) throws ItemNotFoundException {
+    public int getOrderCost(List<String> selectedItemNames) throws ItemNotFoundException {
         int orderCost = 0;
-        for(Item item : selectedItems) {
-            if(findItemByName(item.getName()) == null)
-                throw new ItemNotFoundException(item.getName());
-            orderCost += item.getPrice();
+        for(String itemName : selectedItemNames) {
+            if(findItemByName(itemName) == null)
+                throw new ItemNotFoundException(itemName);
+            orderCost += findItemByName(itemName).getPrice();
         }
         return orderCost;
     }

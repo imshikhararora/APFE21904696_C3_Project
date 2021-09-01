@@ -61,41 +61,47 @@ class RestaurantTest {
 
     @Test
     public void get_correct_order_cost_when_one_or_more_items_are_selected() throws ItemNotFoundException {
-        List<Item> selectedItems = restaurant.getMenu();
+        List<String> selectedItemNames = new ArrayList<>();
+        selectedItemNames.add("Sweet Corn Soup");
+        selectedItemNames.add("Vegetable Lasagne");
         int expectedOrderCost = 388;
 
-        MatcherAssert.assertThat(restaurant.getOrderCost(selectedItems),Matchers.equalTo(expectedOrderCost));
+        MatcherAssert.assertThat(restaurant.getOrderCost(selectedItemNames),Matchers.equalTo(expectedOrderCost));
 
         restaurant.addToMenu("Sizzling Brownie",319);
+        selectedItemNames.add("Sizzling Brownie");
         expectedOrderCost += 319;
 
-        MatcherAssert.assertThat(restaurant.getOrderCost(selectedItems),Matchers.equalTo(expectedOrderCost));
+        MatcherAssert.assertThat(restaurant.getOrderCost(selectedItemNames),Matchers.equalTo(expectedOrderCost));
     }
 
     @Test
     public void get_order_cost_as_zero_by_default_when_no_items_are_selected() throws ItemNotFoundException {
-        MatcherAssert.assertThat(restaurant.getOrderCost(new ArrayList<Item>()),Matchers.equalTo(0));
+        MatcherAssert.assertThat(restaurant.getOrderCost(new ArrayList<String>()),Matchers.equalTo(0));
     }
 
     @Test
     public void get_updated_order_cost_when_removing_the_selected_items() throws ItemNotFoundException {
-        List<Item> selectedItems = restaurant.getMenu();
+        List<String> selectedItemNames = new ArrayList<>();
+        selectedItemNames.add("Sweet Corn Soup");
+        selectedItemNames.add("Vegetable Lasagne");
         int expectedOrderCost = 388;
 
-        MatcherAssert.assertThat(restaurant.getOrderCost(selectedItems), Matchers.equalTo(expectedOrderCost));
+        MatcherAssert.assertThat(restaurant.getOrderCost(selectedItemNames), Matchers.equalTo(expectedOrderCost));
 
-        selectedItems.remove(1);
+        selectedItemNames.remove(1);
         expectedOrderCost -= 269;
 
-        MatcherAssert.assertThat(restaurant.getOrderCost(selectedItems), Matchers.equalTo(expectedOrderCost));
+        MatcherAssert.assertThat(restaurant.getOrderCost(selectedItemNames), Matchers.equalTo(expectedOrderCost));
     }
 
     @Test
     public void edge_case_selected_item_got_removed_by_admin_from_menu_at_the_same_instant_should_throw_exception() throws ItemNotFoundException {
-        List<Item> selectedItems = new ArrayList<>();
-        selectedItems.addAll(restaurant.getMenu());
+        List<String> selectedItemNames = new ArrayList<>();
+        selectedItemNames.add("Sweet Corn Soup");
+        selectedItemNames.add("Vegetable Lasagne");
         restaurant.removeFromMenu("Vegetable Lasagne");
-        assertThrows(ItemNotFoundException.class,()->restaurant.getOrderCost(selectedItems));
+        assertThrows(ItemNotFoundException.class,()->restaurant.getOrderCost(selectedItemNames));
     }
 
     //<<<<<<<<<<<<<<<<<<<<ORDER COST>>>>>>>>>>>>>>>>>>>>>>>>>>
